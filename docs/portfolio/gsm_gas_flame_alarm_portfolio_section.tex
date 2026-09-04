@@ -1,0 +1,220 @@
+% GSM gas and flame alarm portfolio section - compile-ready Overleaf source
+% Compiler: pdfLaTeX
+%
+% REQUIRED IMAGE FILES
+% 1. images/gsm-alarm-prototype.jpg
+% 2. images/gsm-alarm-validation.jpg
+%
+% The supplied Overleaf package already contains these images. If either file
+% is removed, a dimensionally stable placeholder is displayed automatically.
+
+\documentclass[10pt,a4paper]{article}
+
+\usepackage[T1]{fontenc}
+\usepackage[utf8]{inputenc}
+\usepackage{lmodern}
+\usepackage{geometry}
+\usepackage{graphicx}
+\usepackage{xcolor}
+\usepackage{tabularx}
+\usepackage{array}
+\usepackage{enumitem}
+\usepackage{tcolorbox}
+\usepackage{float}
+\usepackage{caption}
+\usepackage{etoolbox}
+\usepackage{microtype}
+\usepackage{ragged2e}
+\usepackage{fancyhdr}
+\usepackage[hidelinks]{hyperref}
+
+\geometry{top=1.35cm,bottom=1.35cm,left=1.45cm,right=1.45cm}
+\setlength{\parindent}{0pt}
+\setlength{\parskip}{4pt}
+\setlength{\headheight}{12pt}
+\setlist[itemize]{leftmargin=4.2mm,itemsep=1.8pt,topsep=2.5pt}
+\renewcommand{\familydefault}{\sfdefault}
+
+% ---------- Colour palette ----------
+\definecolor{Ink}{HTML}{132238}
+\definecolor{Body}{HTML}{34445A}
+\definecolor{Accent}{HTML}{C64372}
+\definecolor{AccentDark}{HTML}{8F2850}
+\definecolor{Teal}{HTML}{237C86}
+\definecolor{Soft}{HTML}{F4F6F8}
+\definecolor{SoftPink}{HTML}{FCF1F5}
+\definecolor{Line}{HTML}{D8DEE6}
+\definecolor{Muted}{HTML}{6E7B8E}
+
+\color{Body}
+
+% ---------- Header and footer ----------
+\pagestyle{fancy}
+\fancyhf{}
+\renewcommand{\headrulewidth}{0pt}
+\fancyhead[L]{\footnotesize\color{Muted} TINHINENE BOUMERDASSI \enspace/\enspace EMBEDDED SYSTEMS \& ROBOTICS}
+\fancyfoot[L]{\footnotesize\color{Muted} SELECTED ENGINEERING PROJECT}
+\fancyfoot[R]{\footnotesize\color{Muted} \thepage}
+
+% ---------- Reusable commands ----------
+\newcommand{\eyebrow}[1]{%
+  {\footnotesize\bfseries\color{Accent}\MakeUppercase{#1}}\par
+}
+
+\newcommand{\sectiontitle}[1]{%
+  {\Large\bfseries\color{Ink}#1}\par
+  \vspace{2pt}{\color{Accent}\rule{1.15cm}{2.2pt}}\vspace{4pt}
+}
+
+\newcommand{\subhead}[1]{%
+  \vspace{2pt}{\normalsize\bfseries\color{Ink}#1}\par
+}
+
+\newcommand{\tag}[1]{%
+  \tcbox[on line,boxsep=1.3pt,left=3.2pt,right=3.2pt,top=1.2pt,bottom=1.2pt,
+  colback=SoftPink,colframe=SoftPink,arc=4pt]{\scriptsize\bfseries\color{AccentDark}#1}%
+}
+
+\newcommand{\metric}[2]{%
+  \begin{minipage}[t]{0.235\textwidth}
+    {\scriptsize\bfseries\color{Muted}\MakeUppercase{#1}}\\[-1pt]
+    {\small\bfseries\color{Ink}#2}
+  \end{minipage}
+}
+
+% #1 filename, #2 width, #3 height, #4 caption
+\newcommand{\portfolioimage}[4]{%
+  \begin{figure}[H]
+    \centering
+    \IfFileExists{#1}{%
+      \includegraphics[width=#2,height=#3,keepaspectratio]{#1}%
+    }{%
+      \fcolorbox{Line}{Soft}{%
+        \parbox[c][#3][c]{\dimexpr#2-2\fboxsep-2\fboxrule\relax}{%
+          \centering
+          {\color{Accent}\Large\bfseries IMAGE}\\[5pt]
+          {\footnotesize\color{Ink}\path{#1}}\\[4pt]
+          {\scriptsize\color{Muted}Upload this file to replace the placeholder automatically.}
+        }%
+      }%
+    }
+    \ifstrempty{#4}{}{\vspace{-3pt}\caption*{\RaggedRight\scriptsize\color{Muted}#4}}
+  \end{figure}
+}
+
+\newtcolorbox{summarybox}{
+  colback=Soft,colframe=Soft,arc=6pt,boxrule=0pt,
+  left=8pt,right=8pt,top=7pt,bottom=7pt
+}
+
+\newtcolorbox{roadmapbox}{
+  colback=SoftPink,colframe=Accent,arc=6pt,boxrule=0.8pt,
+  left=8pt,right=8pt,top=6pt,bottom=6pt
+}
+
+\begin{document}
+
+\eyebrow{Additional Project 06}
+{\fontsize{22}{25}\selectfont\bfseries\color{Ink}GSM-Connected Gas and Flame Alarm}\par
+{\large\color{Teal}Arduino Safety Monitoring with Local Mitigation and SMS Notification}\par
+\vspace{6pt}
+
+\metric{Context}{Team Engineering Project}
+\metric{Role}{Project Team Member}
+\metric{Application}{Domestic Safety Monitoring}
+\metric{Period}{June 2022}
+
+\vspace{7pt}
+
+\begin{minipage}[t]{0.57\textwidth}
+  \vspace{0pt}
+  \sectiontitle{Project Overview}
+
+  \begin{summarybox}
+  \small
+  Developed a breadboard safety prototype that monitors combustible-gas
+  concentration and flame presence, presents the live gas value locally, and
+  initiates layered responses when a hazard is detected. The system combines
+  immediate on-site warning and ventilation with remote SMS notification so
+  that its protective functions do not depend solely on network availability.
+  \end{summarybox}
+
+  \subhead{Engineering implementation}
+  \small
+  \begin{itemize}
+    \item Integrated an Arduino Uno with an analog MQ-5 gas sensor and a
+          digital IR flame-detection module.
+    \item Programmed continuous gas acquisition, threshold evaluation, and a
+          16$\times$2 I\textsuperscript{2}C LCD status interface.
+    \item Implemented local alarm signalling through a buzzer and red/green
+          status LEDs.
+    \item Switched a 12~V ventilation fan through a relay while keeping the
+          Arduino and GSM electronics on a separate 5~V supply.
+    \item Interfaced a Neoway M660 GSM/GPRS module over UART and transmitted an
+          SMS when the alarm condition was reached.
+  \end{itemize}
+
+  \subhead{Deterministic response path}
+  \begin{tcolorbox}[colback=Soft,colframe=Line,arc=5pt,boxrule=0.6pt,left=6pt,right=6pt,top=5pt,bottom=5pt]
+  \centering
+  {\scriptsize\bfseries\color{Ink}MQ-5 / FLAME SENSOR}
+  {\scriptsize\color{Accent}\enspace$\rightarrow$\enspace}
+  {\scriptsize\bfseries\color{Ink}ARDUINO DECISION LOGIC}
+  {\scriptsize\color{Accent}\enspace$\rightarrow$\enspace}
+  {\scriptsize\bfseries\color{Ink}LOCAL ALARM + FAN}\par\vspace{3pt}
+  {\scriptsize\color{Muted}In parallel: GSM UART command sequence $\rightarrow$ remote SMS alert.}
+  \end{tcolorbox}
+\end{minipage}
+\hfill
+\begin{minipage}[t]{0.39\textwidth}
+  \vspace{0pt}
+  \portfolioimage{images/gsm-alarm-prototype.jpg}{\linewidth}{5.85cm}{Assembled sensing, display, power, and GSM electronics. Background and lighting cleaned for presentation.}
+
+  \vspace{-5pt}
+  \begin{tcolorbox}[colback=Ink,colframe=Ink,arc=5pt,boxrule=0pt,left=7pt,right=7pt,top=6pt,bottom=6pt]
+    {\scriptsize\bfseries\color{white}VERIFIED SYSTEM OUTCOME}\par
+    \vspace{3pt}
+    {\small\color{white}A detected hazard triggered local indication,
+    forced ventilation, and a received SMS alert.}
+  \end{tcolorbox}
+
+  \vspace{-2pt}
+  \portfolioimage{images/gsm-alarm-validation.jpg}{\linewidth}{3.25cm}{Video evidence: displayed gas value of 721 and the received GSM alarm message.}
+\end{minipage}
+
+\vspace{3pt}
+\begin{tcolorbox}[colback=Soft,colframe=Line,arc=5pt,boxrule=0.7pt,left=7pt,right=7pt,top=5pt,bottom=5pt]
+{\scriptsize\bfseries\color{Teal}PHYSICAL PROTOTYPE VALIDATION}\par\vspace{2pt}
+{\scriptsize
+The LCD displayed stable ambient readings of approximately 15--26 raw ADC
+counts. Controlled exposure to lighter gas increased the displayed value to
+721, after which the alarm response and fan were demonstrated and the phone
+received the message ``flame or gas detected.'' These values were not shown as
+calibrated ppm measurements, and the video does not isolate a separate
+flame-only validation sequence.}
+\end{tcolorbox}
+
+\vspace{3pt}
+\begin{roadmapbox}
+{\small\bfseries\color{AccentDark}PROPOSED 2026 ARCHITECTURE EVOLUTION --- NOT YET IMPLEMENTED}\par
+\vspace{3pt}
+\begin{tabularx}{\textwidth}{>{\RaggedRight\arraybackslash}X >{\RaggedRight\arraybackslash}X >{\RaggedRight\arraybackslash}X}
+{\scriptsize\textbullet\ Add calibrated, target-selective gas sensing, a dedicated smoke detector where required, environmental compensation, and automatic sensor-fault diagnostics.} &
+{\scriptsize\textbullet\ Replace the legacy 2G modem with an LTE-M/NB-IoT module and authenticated MQTT/TLS telemetry, retaining SMS as a fallback channel.} &
+{\scriptsize\textbullet\ Preserve alarm, buzzer, and fan control as deterministic MCU functions; add a watchdog, battery backup, self-test, and network-health supervision.}
+\end{tabularx}
+\end{roadmapbox}
+
+\vfill
+{\scriptsize\bfseries\color{Muted}TECHNOLOGIES}\par\vspace{4pt}
+\tag{Arduino Uno}\enspace
+\tag{Embedded C/C++}\enspace
+\tag{MQ-5}\enspace
+\tag{IR Flame Sensor}\enspace
+\tag{Neoway M660}\enspace
+\tag{GSM / SMS}\enspace
+\tag{UART}\enspace
+\tag{I\textsuperscript{2}C LCD}\enspace
+\tag{Relay + 12 V Fan}
+
+\end{document}

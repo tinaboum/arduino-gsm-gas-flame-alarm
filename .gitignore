@@ -1,0 +1,24 @@
+# Arduino build artifacts
+build/
+*.hex
+*.elf
+*.bin
+*.map
+*.eep
+
+# Local editor and operating-system files
+.vscode/
+.idea/
+*.swp
+Thumbs.db
+.DS_Store
+
+# LaTeX auxiliary files
+*.aux
+*.log
+*.out
+*.toc
+*.synctex.gz
+*.fls
+*.fdb_latexmk
+
